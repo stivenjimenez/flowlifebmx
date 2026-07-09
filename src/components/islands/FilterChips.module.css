@@ -1,0 +1,25 @@
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 9px 16px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border-strong);
+}
+
+.chip:hover {
+  border-color: var(--text);
+}
+
+.activo {
+  background: var(--acc);
+  color: var(--accInk);
+  border-color: var(--acc);
+}

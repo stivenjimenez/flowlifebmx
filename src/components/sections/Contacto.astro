@@ -1,0 +1,85 @@
+---
+import { socialLinks, whatsappUrl } from '../../data/site';
+import ContactForm from '../forms/ContactForm';
+---
+
+<section id="contacto">
+  <div class="fl-inner inner">
+    <div>
+      <div class="fl-kicker">07 / CONTACTO</div>
+      <h2 class="fl-title titulo">Reserva tu<br />primera clase.</h2>
+      <p class="texto">Cuéntanos tu nivel y qué quieres aprender. Te respondemos por WhatsApp para coordinar día, spot y horario.</p>
+      <a href={whatsappUrl} class="whatsapp">Escribir por WhatsApp →</a>
+      <div class="sociales">
+        {socialLinks.map((social) => <a href={social.href}>{social.label}</a>)}
+      </div>
+    </div>
+    <div class="tarjeta">
+      <ContactForm client:visible />
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    border-bottom: 1px solid var(--border);
+  }
+  .inner {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(32px, 5vw, 56px);
+    align-items: start;
+  }
+  h2.titulo {
+    margin-bottom: 20px;
+  }
+  .texto {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin: 0 0 32px;
+  }
+  .whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--acc);
+    color: var(--accInk);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 15px 26px;
+    border-radius: 3px;
+    margin-bottom: 36px;
+  }
+  .whatsapp:hover {
+    filter: brightness(1.1);
+  }
+  .sociales {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .sociales a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .sociales a:hover {
+    color: var(--acc);
+  }
+  .tarjeta {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: clamp(20px, 4vw, 32px);
+  }
+
+  @media (max-width: 859px) {
+    .inner {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

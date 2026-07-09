@@ -1,0 +1,115 @@
+---
+import { riders } from '../../data/riders';
+import MediaPlaceholder from '../ui/MediaPlaceholder.astro';
+---
+
+<section id="riders">
+  <div class="fl-inner">
+    <div class="fl-kicker">03 / RIDERS MENTOREADOS</div>
+    <h2 class="fl-title titulo">Arrancaron desde cero.<br />Hoy están sacando trucos.</h2>
+    <p class="bajada">Progreso real de la comunidad. Sin filtro.</p>
+    <div class="grid">
+      {
+        riders.map((rider) => (
+          <article class="card">
+            <MediaPlaceholder {...rider.media} ratio="4/3" small />
+            <div class="cuerpo">
+              <div class="cabecera">
+                <span class="nombre">{rider.nombre}</span>
+                <span class="nivel">{rider.nivel}</span>
+              </div>
+              <div class="progreso">
+                <span class="antes">{rider.antes}</span>
+                <span class="flecha">→</span>
+                <span class="despues">{rider.despues}</span>
+              </div>
+              <p class="quote">“{rider.quote}”</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    border-bottom: 1px solid var(--border);
+  }
+  h2.titulo {
+    margin-bottom: 12px;
+  }
+  .bajada {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 0 40px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    border-color: var(--border-strong);
+  }
+  .card :global(.fl-placeholder) {
+    border: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .cuerpo {
+    padding: 20px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .nombre {
+    font-family: var(--font-display);
+    font-size: 26px;
+    line-height: 1;
+  }
+  .nivel {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    border: 1px solid var(--border-strong);
+    padding: 4px 8px;
+    white-space: nowrap;
+  }
+  .progreso {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .antes {
+    color: var(--muted);
+  }
+  .flecha {
+    color: var(--acc);
+  }
+  .despues {
+    color: var(--text);
+  }
+  .quote {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--muted);
+    flex: 1;
+  }
+</style>

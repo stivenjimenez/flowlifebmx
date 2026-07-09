@@ -1,0 +1,104 @@
+/* Tokens del diseño (design/flow-life-reference.html) */
+:root {
+  --bg: #0b0b0b;
+  --bg-alt: #111111;
+  --surface: #1a1a1a;
+  --border: #2d2d2d;
+  --border-strong: #4a4a4a;
+  --text: #f2f2ea;
+  --muted: #a3a3a3;
+  --muted-dim: #5a5a5a;
+  --acc: #c6ff00;
+  --accInk: #0b0b0b;
+  --warn: #ffb020;
+  --error: #ff5a1f;
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+/* Reset mínimo */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* El nav sticky mide 64px: evita que tape las secciones al navegar por ancla */
+section[id] {
+  scroll-margin-top: 64px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+::placeholder {
+  color: var(--muted-dim);
+}
+
+@keyframes fl-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Primitivas compartidas del diseño (secciones Astro e islas React) */
+.fl-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(48px, 8vw, 88px) clamp(16px, 4vw, 24px);
+}
+
+.fl-kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--acc);
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+}
+
+.fl-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 4.5vw, 64px);
+  line-height: 0.95;
+  margin: 0;
+}
+
+.fl-placeholder {
+  background: repeating-linear-gradient(135deg, #181818 0 14px, #131313 14px 28px);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fl-placeholder-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted-dim);
+  text-align: center;
+  white-space: pre-line;
+}
+
+.fl-placeholder--sm .fl-placeholder-label {
+  font-size: 11px;
+}

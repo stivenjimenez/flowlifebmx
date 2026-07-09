@@ -1,0 +1,138 @@
+---
+import { planes } from '../../data/planes';
+---
+
+<section id="precios">
+  <div class="fl-inner">
+    <div class="fl-kicker">05 / PRECIOS</div>
+    <h2 class="fl-title titulo">Elige cómo<br />quieres progresar.</h2>
+    <div class="grid">
+      {
+        planes.map((plan) => (
+          <article class:list={['card', { destacado: plan.destacado }]}>
+            {plan.destacado && <span class="badge">MÁS RECOMENDADO</span>}
+            <div class="nombre">{plan.nombre}</div>
+            <div class="para">{plan.para}</div>
+            <div class="precioFila">
+              <span class="precio">{plan.precio}</span>
+              <span class="unidad">{plan.unidad}</span>
+            </div>
+            <div class="incluye">
+              {plan.incluye.map((item) => (
+                <div class="item">
+                  <span class="check">✓</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            <a href="#contacto" class="btn">{plan.cta}</a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    border-bottom: 1px solid var(--border);
+  }
+  h2.titulo {
+    margin-bottom: 40px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .card.destacado {
+    border-color: var(--acc);
+  }
+  .badge {
+    position: absolute;
+    top: -12px;
+    left: 24px;
+    background: var(--acc);
+    color: var(--accInk);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 10px;
+    letter-spacing: 0.08em;
+  }
+  .nombre {
+    font-family: var(--font-display);
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .para {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .precioFila {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+  .precio {
+    font-family: var(--font-display);
+    font-size: 44px;
+    line-height: 1;
+    color: var(--acc);
+  }
+  .unidad {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted-dim);
+  }
+  .incluye {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    margin-bottom: 26px;
+  }
+  .item {
+    display: flex;
+    gap: 10px;
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .check {
+    color: var(--acc);
+  }
+  .btn {
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 13px 18px;
+    border-radius: 3px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+  }
+  .card.destacado .btn {
+    background: var(--acc);
+    color: var(--accInk);
+    border-color: var(--acc);
+  }
+  .btn:hover {
+    filter: brightness(1.15);
+  }
+</style>

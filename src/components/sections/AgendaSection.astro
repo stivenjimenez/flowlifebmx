@@ -1,0 +1,17 @@
+---
+import { clases } from '../../data/clases';
+import Agenda from '../islands/Agenda';
+---
+
+<section id="agenda">
+  <div class="fl-inner">
+    <Agenda client:visible clases={clases} />
+  </div>
+</section>
+
+<style>
+  section {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+</style>

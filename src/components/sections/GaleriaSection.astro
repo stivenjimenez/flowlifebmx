@@ -1,0 +1,23 @@
+---
+import { galeriaImages } from '../../data/images';
+import { galeriaVideos } from '../../data/videos';
+import Galeria, { type GaleriaItem } from '../islands/Galeria';
+
+const items: GaleriaItem[] = [
+  ...galeriaImages.map((imagen) => ({ ...imagen, esVideo: false })),
+  ...galeriaVideos.map((video) => ({ ...video, esVideo: true, alt: video.title })),
+].sort((a, b) => a.orden - b.orden);
+---
+
+<section id="galeria">
+  <div class="fl-inner">
+    <Galeria client:visible items={items} />
+  </div>
+</section>
+
+<style>
+  section {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+</style>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+:root{--acc:#C6FF00;--accInk:#0B0B0B}
+html{scroll-behavior:smooth}
+body{margin:0;background:#0B0B0B;color:#F2F2EA;font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased}
+@keyframes fl-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+::placeholder{color:#5a5a5a}
+</style>
+</helmet>
+
+<!-- ============ NAV ============ -->
+<header data-screen-label="Nav" style="position:sticky;top:0;z-index:50;background:rgba(11,11,11,.92);backdrop-filter:blur(10px);border-bottom:1px solid #2D2D2D">
+  <div style="max-width:1240px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="#inicio" style="display:flex;align-items:baseline;gap:8px;text-decoration:none">
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:#F2F2EA">FLOW <span style="color:var(--acc)">LIFE</span></span>
+      <span style="font-family:'Space Mono',monospace;font-size:10px;color:#A3A3A3">BMX FREESTYLE</span>
+    </a>
+    <nav style="display:flex;align-items:center;gap:22px">
+      <div style="display:{{ navLinksDisplay }};align-items:center;gap:22px">
+      <a href="#profe" style="color:#A3A3A3;text-decoration:none;font-size:13px;font-weight:600" style-hover="color:#F2F2EA">Profe</a>
+      <a href="#agenda" style="color:#A3A3A3;text-decoration:none;font-size:13px;font-weight:600" style-hover="color:#F2F2EA">Agenda</a>
+      <a href="#riders" style="color:#A3A3A3;text-decoration:none;font-size:13px;font-weight:600" style-hover="color:#F2F2EA">Riders</a>
+      <a href="#galeria" style="color:#A3A3A3;text-decoration:none;font-size:13px;font-weight:600" style-hover="color:#F2F2EA">Galería</a>
+      <a href="#precios" style="color:#A3A3A3;text-decoration:none;font-size:13px;font-weight:600" style-hover="color:#F2F2EA">Precios</a>
+      <a href="#spots" style="color:#A3A3A3;text-decoration:none;font-size:13px;font-weight:600" style-hover="color:#F2F2EA">Spots</a>
+      </div>
+      <a href="#contacto" style="background:var(--acc);color:var(--accInk);text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;border-radius:3px;white-space:nowrap" style-hover="filter:brightness(1.1)">Reservar clase</a>
+      <button onClick="{{ toggleMenu }}" style="display:{{ hamburgerDisplay }};background:transparent;border:1px solid #4a4a4a;color:#F2F2EA;font-family:'Space Mono',monospace;font-size:14px;padding:8px 12px;cursor:pointer;border-radius:3px">{{ menuIcono }}</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ MENU MOBILE ============ -->
+<sc-if value="{{ menuAbierto }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;inset:64px 0 0 0;z-index:49;background:rgba(11,11,11,.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;gap:4px;padding:24px">
+    <a href="#profe" onClick="{{ cerrarMenu }}" style="color:#F2F2EA;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:34px;padding:10px 8px;border-bottom:1px solid #2D2D2D">Profe</a>
+    <a href="#agenda" onClick="{{ cerrarMenu }}" style="color:#F2F2EA;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:34px;padding:10px 8px;border-bottom:1px solid #2D2D2D">Agenda</a>
+    <a href="#riders" onClick="{{ cerrarMenu }}" style="color:#F2F2EA;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:34px;padding:10px 8px;border-bottom:1px solid #2D2D2D">Riders</a>
+    <a href="#galeria" onClick="{{ cerrarMenu }}" style="color:#F2F2EA;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:34px;padding:10px 8px;border-bottom:1px solid #2D2D2D">Galería</a>
+    <a href="#precios" onClick="{{ cerrarMenu }}" style="color:#F2F2EA;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:34px;padding:10px 8px;border-bottom:1px solid #2D2D2D">Precios</a>
+    <a href="#spots" onClick="{{ cerrarMenu }}" style="color:#F2F2EA;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:34px;padding:10px 8px;border-bottom:1px solid #2D2D2D">Spots</a>
+    <a href="#contacto" onClick="{{ cerrarMenu }}" style="color:var(--acc);text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:34px;padding:10px 8px">Reservar clase</a>
+  </div>
+</sc-if>
+
+<!-- ============ HERO ============ -->
+<section id="inicio" data-screen-label="Hero" style="position:relative;border-bottom:1px solid #2D2D2D;overflow:hidden">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(16px,4vw,24px) 0;display:grid;grid-template-columns:{{ gridHero }};gap:48px;align-items:end">
+    <div style="padding-bottom:clamp(40px,6vw,72px)">
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--acc);letter-spacing:.15em;margin-bottom:20px">CLASES · SPOTS · COMUNIDAD</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,7.5vw,104px);line-height:.92;margin:0 0 24px;letter-spacing:.5px">Aprende BMX freestyle<br>con un mentor que te<br><span style="color:var(--acc)">acompaña en serio.</span></h1>
+      <p style="font-size:17px;line-height:1.6;color:#A3A3A3;max-width:520px;margin:0 0 32px">Clases presenciales, progresión técnica, spots reales, comunidad y contenido para riders de todos los niveles.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="#agenda" style="background:var(--acc);color:var(--accInk);text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:15px 26px;border-radius:3px" style-hover="filter:brightness(1.1)">Ver agenda</a>
+        <a href="#contacto" style="background:transparent;border:1px solid #4a4a4a;color:#F2F2EA;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:14px 26px;border-radius:3px" style-hover="background:#1A1A1A">Reservar clase</a>
+        <a href="#galeria" style="background:transparent;color:#A3A3A3;text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:15px 12px" style-hover="color:#F2F2EA">Ver videos →</a>
+      </div>
+    </div>
+    <div style="align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end">
+      <div style="height:420px;background:repeating-linear-gradient(135deg,#181818 0 14px,#131313 14px 28px);border:1px solid #2D2D2D;border-bottom:none;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px">
+        <span style="font-family:'Space Mono',monospace;font-size:12px;color:#5a5a5a">[ video loop: profe andando<br>en skatepark ]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div style="border-bottom:1px solid #2D2D2D;background:#0B0B0B;overflow:hidden;padding:14px 0">
+  <div style="display:flex;gap:0;width:max-content;animation:fl-marquee 22s linear infinite">
+    <div style="display:flex;gap:36px;padding-right:36px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.12em;color:#5a5a5a;white-space:nowrap">
+      <span>PARK</span><span style="color:var(--acc)">✕</span><span>STREET</span><span style="color:var(--acc)">✕</span><span>BOWL</span><span style="color:var(--acc)">✕</span><span>DIRT</span><span style="color:var(--acc)">✕</span><span>FLAT</span><span style="color:var(--acc)">✕</span><span>BUNNY HOP</span><span style="color:var(--acc)">✕</span><span>MANUAL</span><span style="color:var(--acc)">✕</span><span>180</span><span style="color:var(--acc)">✕</span><span>FAKIE</span><span style="color:var(--acc)">✕</span>
+    </div>
+    <div style="display:flex;gap:36px;padding-right:36px;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.12em;color:#5a5a5a;white-space:nowrap">
+      <span>PARK</span><span style="color:var(--acc)">✕</span><span>STREET</span><span style="color:var(--acc)">✕</span><span>BOWL</span><span style="color:var(--acc)">✕</span><span>DIRT</span><span style="color:var(--acc)">✕</span><span>FLAT</span><span style="color:var(--acc)">✕</span><span>BUNNY HOP</span><span style="color:var(--acc)">✕</span><span>MANUAL</span><span style="color:var(--acc)">✕</span><span>180</span><span style="color:var(--acc)">✕</span><span>FAKIE</span><span style="color:var(--acc)">✕</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROFE ============ -->
+<section id="profe" data-screen-label="Profe" style="border-bottom:1px solid #2D2D2D">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,8vw,88px) clamp(16px,4vw,24px);display:grid;grid-template-columns:{{ gridProfe }};gap:clamp(32px,5vw,56px);align-items:start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="aspect-ratio:4/5;background:repeating-linear-gradient(135deg,#181818 0 14px,#131313 14px 28px);border:1px solid #2D2D2D;display:flex;align-items:center;justify-content:center">
+        <span style="font-family:'Space Mono',monospace;font-size:12px;color:#5a5a5a">[ foto: retrato del profe ]</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div style="aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#181818 0 14px,#131313 14px 28px);border:1px solid #2D2D2D;display:flex;align-items:center;justify-content:center"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#5a5a5a">[ dando clase ]</span></div>
+        <div style="aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#181818 0 14px,#131313 14px 28px);border:1px solid #2D2D2D;display:flex;align-items:center;justify-content:center"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#5a5a5a">[ truco en park ]</span></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--acc);letter-spacing:.15em;margin-bottom:16px">01 / EL PROFE</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,4.5vw,64px);line-height:.95;margin:0 0 24px">Más de una década<br>arriba de la bici.</h2>
+      <p style="font-size:16px;line-height:1.7;color:#A3A3A3;max-width:560px;margin:0 0 16px">[ Bio del profe: cómo empezó en el BMX, qué lo conecta con la disciplina y por qué decidió enseñar. Historia real, cercana, sin humo. ]</p>
+      <p style="font-size:16px;line-height:1.7;color:#A3A3A3;max-width:560px;margin:0 0 36px">Filosofía simple: progresar sin apuro, con técnica, seguridad y respeto por la cultura. Cada rider avanza a su ritmo, con objetivos claros por clase.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;max-width:560px;margin-bottom:36px">
+        <div style="background:#1A1A1A;border:1px solid #2D2D2D;padding:20px 18px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--acc);line-height:1">12+</div>
+          <div style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3;margin-top:6px">AÑOS EN BMX</div>
+        </div>
+        <div style="background:#1A1A1A;border:1px solid #2D2D2D;padding:20px 18px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--acc);line-height:1">80+</div>
+          <div style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3;margin-top:6px">RIDERS MENTOREADOS</div>
+        </div>
+        <div style="background:#1A1A1A;border:1px solid #2D2D2D;padding:20px 18px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--acc);line-height:1">6</div>
+          <div style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3;margin-top:6px">SPOTS ACTIVOS</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:#F2F2EA;border:1px solid #4a4a4a;padding:6px 12px">PARK</span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:#F2F2EA;border:1px solid #4a4a4a;padding:6px 12px">STREET</span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:#F2F2EA;border:1px solid #4a4a4a;padding:6px 12px">BOWL</span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--acc);border:1px solid var(--acc);padding:6px 12px">JAMS Y COMPETENCIAS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AGENDA ============ -->
+<section id="agenda" data-screen-label="Agenda" style="border-bottom:1px solid #2D2D2D;background:#111111">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,8vw,88px) clamp(16px,4vw,24px)">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--acc);letter-spacing:.15em;margin-bottom:16px">02 / AGENDA DE CLASES</div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,4.5vw,64px);line-height:.95;margin:0">Esta semana<br>se anda.</h2>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ chipsAgenda }}" as="chip" hint-placeholder-count="4">
+          <button onClick="{{ chip.onClick }}" style="font-family:'Space Mono',monospace;font-size:12px;padding:9px 16px;cursor:pointer;background:{{ chip.bg }};color:{{ chip.color }};border:1px solid {{ chip.border }}" style-hover="border-color:#F2F2EA">{{ chip.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <sc-for list="{{ clases }}" as="c" hint-placeholder-count="4">
+        <div style="background:#1A1A1A;border:1px solid #2D2D2D;padding:22px 24px;display:grid;grid-template-columns:{{ gridClase }};gap:{{ gapClase }};align-items:center" style-hover="border-color:#4a4a4a">
+          <div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1">{{ c.dia }}</div>
+            <div style="font-family:'Space Mono',monospace;font-size:12px;color:#A3A3A3">{{ c.hora }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:{{ alignNivel }}">
+            <span style="font-family:'Space Mono',monospace;font-size:10px;color:#F2F2EA;border:1px solid #4a4a4a;padding:4px 8px;text-align:center">{{ c.nivel }}</span>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:15px">{{ c.lugar }}</div>
+            <div style="font-size:13px;color:#A3A3A3;margin-top:2px">{{ c.tipo }}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:'Space Mono',monospace;font-size:12px;color:{{ c.estadoColor }}">● {{ c.estado }}</div>
+            <div style="font-family:'Space Mono',monospace;font-size:11px;color:#5a5a5a;margin-top:4px">{{ c.cupos }}</div>
+          </div>
+          <sc-if value="{{ c.reservable }}" hint-placeholder-val="{{ true }}">
+            <a href="#contacto" style="grid-column:{{ colBtnClase }};text-align:center;background:var(--acc);color:var(--accInk);text-decoration:none;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:3px;white-space:nowrap" style-hover="filter:brightness(1.1)">Reservar</a>
+          </sc-if>
+          <sc-if value="{{ c.completa }}" hint-placeholder-val="{{ false }}">
+            <span style="grid-column:{{ colBtnClase }};text-align:center;border:1px solid #2D2D2D;color:#5a5a5a;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:3px;white-space:nowrap">Completo</span>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <p style="font-family:'Space Mono',monospace;font-size:12px;color:#5a5a5a;margin:24px 0 0">* Por lluvia, la clase se reprograma y el cupo no se pierde.</p>
+  </div>
+</section>
+
+<!-- ============ RIDERS ============ -->
+<section id="riders" data-screen-label="Riders" style="border-bottom:1px solid #2D2D2D">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,8vw,88px) clamp(16px,4vw,24px)">
+    <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--acc);letter-spacing:.15em;margin-bottom:16px">03 / RIDERS MENTOREADOS</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,4.5vw,64px);line-height:.95;margin:0 0 12px">Arrancaron desde cero.<br>Hoy están sacando trucos.</h2>
+    <p style="font-size:16px;color:#A3A3A3;max-width:520px;margin:0 0 40px">Progreso real de la comunidad. Sin filtro.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+      <sc-for list="{{ riders }}" as="r" hint-placeholder-count="3">
+        <div style="background:#1A1A1A;border:1px solid #2D2D2D;display:flex;flex-direction:column" style-hover="border-color:#4a4a4a">
+          <div style="aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#181818 0 14px,#131313 14px 28px);border-bottom:1px solid #2D2D2D;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#5a5a5a">{{ r.media }}</span>
+          </div>
+          <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:12px;flex:1">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1">{{ r.nombre }}</span>
+              <span style="font-family:'Space Mono',monospace;font-size:10px;color:#A3A3A3;border:1px solid #4a4a4a;padding:4px 8px;white-space:nowrap">{{ r.nivel }}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:11px">
+              <span style="color:#A3A3A3">{{ r.antes }}</span>
+              <span style="color:var(--acc)">→</span>
+              <span style="color:#F2F2EA">{{ r.despues }}</span>
+            </div>
+            <p style="margin:0;font-size:13.5px;line-height:1.6;color:#A3A3A3;flex:1">“{{ r.quote }}”</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALERIA ============ -->
+<section id="galeria" data-screen-label="Galeria" style="border-bottom:1px solid #2D2D2D;background:#111111">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,8vw,88px) clamp(16px,4vw,24px)">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:36px">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--acc);letter-spacing:.15em;margin-bottom:16px">04 / GALERÍA</div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,4.5vw,64px);line-height:.95;margin:0">Fotos y clips<br>de la comunidad.</h2>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ chipsGaleria }}" as="chip" hint-placeholder-count="4">
+          <button onClick="{{ chip.onClick }}" style="font-family:'Space Mono',monospace;font-size:12px;padding:9px 16px;cursor:pointer;background:{{ chip.bg }};color:{{ chip.color }};border:1px solid {{ chip.border }}" style-hover="border-color:#F2F2EA">{{ chip.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px">
+      <sc-for list="{{ galeria }}" as="g" hint-placeholder-count="8">
+        <button onClick="{{ g.onClick }}" style="all:unset;cursor:pointer;aspect-ratio:{{ g.ratio }};background:repeating-linear-gradient(135deg,#181818 0 14px,#131313 14px 28px);border:1px solid #2D2D2D;position:relative;display:flex;align-items:flex-end" style-hover="border-color:var(--acc)">
+          <div style="padding:12px 14px;display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--acc)">{{ g.cat }}</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#5a5a5a">{{ g.label }}</span>
+          </div>
+          <sc-if value="{{ g.esVideo }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:12px;right:12px;font-family:'Space Mono',monospace;font-size:10px;color:var(--accInk);background:var(--acc);padding:3px 8px;font-weight:700">▶ VIDEO</span>
+          </sc-if>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODAL GALERIA ============ -->
+<sc-if value="{{ modalAbierto }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ cerrarModal }}" style="position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:32px">
+    <div onClick="{{ frenarClick }}" style="background:#1A1A1A;border:1px solid #2D2D2D;max-width:820px;width:100%;position:relative">
+      <button onClick="{{ cerrarModal }}" style="position:absolute;top:14px;right:14px;background:#0B0B0B;border:1px solid #4a4a4a;color:#F2F2EA;font-family:'Space Mono',monospace;font-size:13px;padding:8px 13px;cursor:pointer;z-index:1" style-hover="border-color:var(--acc);color:var(--acc)">✕</button>
+      <div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#181818 0 14px,#131313 14px 28px);border-bottom:1px solid #2D2D2D;display:flex;align-items:center;justify-content:center">
+        <span style="font-family:'Space Mono',monospace;font-size:12px;color:#5a5a5a">{{ modalMedia }}</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:24px">{{ modalTitulo }}</span>
+        <span style="font-family:'Space Mono',monospace;font-size:11px;color:var(--acc)">{{ modalCat }}</span>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ============ PRICING ============ -->
+<section id="precios" data-screen-label="Precios" style="border-bottom:1px solid #2D2D2D">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,8vw,88px) clamp(16px,4vw,24px)">
+    <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--acc);letter-spacing:.15em;margin-bottom:16px">05 / PRECIOS</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,4.5vw,64px);line-height:.95;margin:0 0 40px">Elige cómo<br>quieres progresar.</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;align-items:stretch">
+      <sc-for list="{{ planes }}" as="p" hint-placeholder-count="4">
+        <div style="background:#1A1A1A;border:1px solid {{ p.borde }};padding:28px 24px;display:flex;flex-direction:column;gap:0;position:relative">
+          <sc-if value="{{ p.destacado }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:-12px;left:24px;background:var(--acc);color:var(--accInk);font-family:'Space Mono',monospace;font-size:10px;font-weight:700;padding:5px 10px;letter-spacing:.08em">MÁS RECOMENDADO</span>
+          </sc-if>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;margin-bottom:6px">{{ p.nombre }}</div>
+          <div style="font-size:13px;color:#A3A3A3;margin-bottom:20px">{{ p.para }}</div>
+          <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:22px">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;color:var(--acc)">{{ p.precio }}</span>
+            <span style="font-family:'Space Mono',monospace;font-size:11px;color:#5a5a5a">{{ p.unidad }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;flex:1;margin-bottom:26px">
+            <sc-for list="{{ p.incluye }}" as="item" hint-placeholder-count="3">
+              <div style="display:flex;gap:10px;font-size:13.5px;color:#A3A3A3;line-height:1.5"><span style="color:var(--acc)">✓</span><span>{{ item }}</span></div>
+            </sc-for>
+          </div>
+          <a href="#contacto" style="text-align:center;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:13px 18px;border-radius:3px;background:{{ p.btnBg }};color:{{ p.btnColor }};border:1px solid {{ p.btnBorde }}" style-hover="filter:brightness(1.15)">{{ p.cta }}</a>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPOTS ============ -->
+<section id="spots" data-screen-label="Spots" style="border-bottom:1px solid #2D2D2D;background:#111111">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,8vw,88px) clamp(16px,4vw,24px)">
+    <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--acc);letter-spacing:.15em;margin-bottom:16px">06 / SPOTS Y SKATEPARKS</div>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,4.5vw,64px);line-height:.95;margin:0 0 40px">Dónde<br>andamos.</h2>
+    <div style="display:grid;grid-template-columns:{{ gridSpots }};gap:20px;align-items:stretch">
+      <div style="background:repeating-linear-gradient(135deg,#181818 0 14px,#131313 14px 28px);border:1px solid #2D2D2D;min-height:{{ altoMapa }};display:flex;align-items:center;justify-content:center">
+        <span style="font-family:'Space Mono',monospace;font-size:12px;color:#5a5a5a">[ mapa interactivo de spots ]</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ spots }}" as="s" hint-placeholder-count="3">
+          <div style="background:#1A1A1A;border:1px solid #2D2D2D;padding:20px 22px" style-hover="border-color:#4a4a4a">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px">
+              <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1">{{ s.nombre }}</span>
+              <span style="font-family:'Space Mono',monospace;font-size:10px;color:#A3A3A3;border:1px solid #4a4a4a;padding:4px 8px;white-space:nowrap">{{ s.nivel }}</span>
+            </div>
+            <div style="font-size:13px;color:#A3A3A3;line-height:1.6">{{ s.ideal }}</div>
+            <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--acc);margin-top:10px">CLASES: {{ s.dias }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section id="contacto" data-screen-label="Contacto" style="border-bottom:1px solid #2D2D2D">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(48px,8vw,88px) clamp(16px,4vw,24px);display:grid;grid-template-columns:{{ gridContacto }};gap:clamp(32px,5vw,56px);align-items:start">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:var(--acc);letter-spacing:.15em;margin-bottom:16px">07 / CONTACTO</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,4.5vw,64px);line-height:.95;margin:0 0 20px">Reserva tu<br>primera clase.</h2>
+      <p style="font-size:16px;line-height:1.7;color:#A3A3A3;margin:0 0 32px">Cuéntanos tu nivel y qué quieres aprender. Te respondemos por WhatsApp para coordinar día, spot y horario.</p>
+      <a href="#" style="display:inline-flex;align-items:center;gap:10px;background:var(--acc);color:var(--accInk);text-decoration:none;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:15px 26px;border-radius:3px;margin-bottom:36px" style-hover="filter:brightness(1.1)">Escribir por WhatsApp →</a>
+      <div style="display:flex;flex-direction:column;gap:10px;font-family:'Space Mono',monospace;font-size:13px">
+        <a href="#" style="color:#A3A3A3;text-decoration:none" style-hover="color:var(--acc)">↗ Instagram — @flowlife.bmx</a>
+        <a href="#" style="color:#A3A3A3;text-decoration:none" style-hover="color:var(--acc)">↗ TikTok — @flowlife.bmx</a>
+        <a href="#" style="color:#A3A3A3;text-decoration:none" style-hover="color:var(--acc)">↗ YouTube — Flow Life BMX</a>
+        <a href="#" style="color:#A3A3A3;text-decoration:none" style-hover="color:var(--acc)">✉ hola@flowlife.bmx</a>
+      </div>
+    </div>
+    <div style="background:#1A1A1A;border:1px solid #2D2D2D;padding:clamp(20px,4vw,32px)">
+      <sc-if value="{{ formOk }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:48px 24px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--acc);margin-bottom:12px">¡LISTO!</div>
+          <p style="font-size:15px;color:#A3A3A3;margin:0 0 24px">Recibimos tu mensaje. Te escribimos por WhatsApp en las próximas horas para coordinar tu clase.</p>
+          <button onClick="{{ resetForm }}" style="background:transparent;border:1px solid #4a4a4a;color:#F2F2EA;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:12px 22px;border-radius:3px;cursor:pointer" style-hover="background:#0B0B0B">Enviar otro</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ formVisible }}" hint-placeholder-val="{{ true }}">
+        <form onSubmit="{{ enviarForm }}" style="display:grid;grid-template-columns:{{ gridForm }};gap:16px">
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3">NOMBRE *</span><input name="nombre" style="background:#0B0B0B;border:1px solid #2D2D2D;color:#F2F2EA;padding:12px 14px;font-family:'Manrope',sans-serif;font-size:14px;outline:none" style-focus="border-color:var(--acc)"></label>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3">EDAD</span><input name="edad" type="number" style="background:#0B0B0B;border:1px solid #2D2D2D;color:#F2F2EA;padding:12px 14px;font-family:'Manrope',sans-serif;font-size:14px;outline:none" style-focus="border-color:var(--acc)"></label>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3">NIVEL *</span><select name="nivel" style="background:#0B0B0B;border:1px solid #2D2D2D;color:#F2F2EA;padding:12px 14px;font-family:'Manrope',sans-serif;font-size:14px;outline:none"><option value="">Elegir…</option><option>Nunca anduve</option><option>Inicial</option><option>Intermedio</option><option>Avanzado</option></select></label>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3">ZONA</span><input name="zona" style="background:#0B0B0B;border:1px solid #2D2D2D;color:#F2F2EA;padding:12px 14px;font-family:'Manrope',sans-serif;font-size:14px;outline:none" style-focus="border-color:var(--acc)"></label>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3">DÍA DISPONIBLE</span><select name="dia" style="background:#0B0B0B;border:1px solid #2D2D2D;color:#F2F2EA;padding:12px 14px;font-family:'Manrope',sans-serif;font-size:14px;outline:none"><option value="">Cualquiera</option><option>Martes</option><option>Jueves</option><option>Sábado</option></select></label>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3">¿TIENES BICI?</span><select name="bici" style="background:#0B0B0B;border:1px solid #2D2D2D;color:#F2F2EA;padding:12px 14px;font-family:'Manrope',sans-serif;font-size:14px;outline:none"><option>Sí</option><option>No</option></select></label>
+          <label style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3">¿QUÉ QUIERES APRENDER?</span><input name="aprender" placeholder="Bunny hop, manual, 180, perder el miedo…" style="background:#0B0B0B;border:1px solid #2D2D2D;color:#F2F2EA;padding:12px 14px;font-family:'Manrope',sans-serif;font-size:14px;outline:none" style-focus="border-color:var(--acc)"></label>
+          <label style="display:flex;flex-direction:column;gap:6px"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3">WHATSAPP *</span><input name="whatsapp" style="background:#0B0B0B;border:1px solid #2D2D2D;color:#F2F2EA;padding:12px 14px;font-family:'Manrope',sans-serif;font-size:14px;outline:none" style-focus="border-color:var(--acc)"></label>
+          <label style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#A3A3A3">MENSAJE</span><textarea name="mensaje" rows="3" style="background:#0B0B0B;border:1px solid #2D2D2D;color:#F2F2EA;padding:12px 14px;font-family:'Manrope',sans-serif;font-size:14px;outline:none;resize:vertical" style-focus="border-color:var(--acc)"></textarea></label>
+          <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
+            <div style="grid-column:1/-1;font-family:'Space Mono',monospace;font-size:12px;color:#FF5A1F">{{ formError }}</div>
+          </sc-if>
+          <button type="submit" style="grid-column:1/-1;background:var(--acc);color:var(--accInk);border:none;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:16px;border-radius:3px;cursor:pointer;font-family:'Manrope',sans-serif" style-hover="filter:brightness(1.1)">Reservar mi primera clase</button>
+        </form>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer data-screen-label="Footer" style="padding:40px 24px">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px">FLOW <span style="color:var(--acc)">LIFE</span></span>
+    <span style="font-family:'Space Mono',monospace;font-size:11px;color:#5a5a5a">BMX FREESTYLE · CLASES · SPOTS · COMUNIDAD — 2026</span>
+  </div>
+</footer>
+
+<!-- ============ WHATSAPP FLOTANTE ============ -->
+<sc-if value="{{ ctaFijo }}" hint-placeholder-val="{{ true }}">
+  <a href="#contacto" style="position:fixed;bottom:24px;right:24px;z-index:60;background:var(--acc);color:var(--accInk);text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:14px 22px;border-radius:3px;box-shadow:0 8px 24px rgba(0,0,0,.5)" style-hover="filter:brightness(1.1)">Reservar clase</a>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;acento&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#C6FF00&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#C6FF00&quot;, &quot;#FF5A1F&quot;, &quot;#1E6BFF&quot;], &quot;section&quot;: &quot;Marca&quot;}, &quot;ctaFijo&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Comportamiento&quot;}}">
+class Component extends DCLogic {
+  state = { filtroAgenda: 'Todos', filtroGaleria: 'Todo', modal: null, formOk: false, formError: '', w: typeof window !== 'undefined' ? window.innerWidth : 1200, menuAbierto: false };
+
+  componentDidMount() {
+    this.aplicarAcento();
+    this._onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+  componentDidUpdate() { this.aplicarAcento(); }
+  aplicarAcento() {
+    const acc = this.props.acento ?? '#C6FF00';
+    document.documentElement.style.setProperty('--acc', acc);
+    document.documentElement.style.setProperty('--accInk', '#0B0B0B');
+  }
+
+  clasesData = [
+    { dia: 'MARTES', hora: '17:00', lugar: 'Skatepark Palermo', tipo: 'Clase grupal · Park', nivel: 'INICIAL', cupos: '5 CUPOS', estado: 'Disponible' },
+    { dia: 'JUEVES', hora: '18:30', lugar: 'Spot callejero Centro', tipo: 'Clase grupal · Street', nivel: 'INTERMEDIO', cupos: '2 CUPOS', estado: 'Pocos cupos' },
+    { dia: 'VIERNES', hora: '17:30', lugar: 'Skatepark Palermo', tipo: 'Clase individual · Técnica', nivel: 'AVANZADO', cupos: '—', estado: 'Completo' },
+    { dia: 'SÁBADO', hora: '10:00', lugar: 'Skatepark Costanera', tipo: 'Clase grupal · Todos los niveles', nivel: 'TODOS', cupos: '8 CUPOS', estado: 'Disponible' },
+    { dia: 'SÁBADO', hora: '15:00', lugar: 'Bowl Municipal', tipo: 'Clase grupal · Bowl', nivel: 'INTERMEDIO', cupos: '4 CUPOS', estado: 'Disponible' },
+  ];
+
+  galeriaData = [
+    { cat: 'PROFE', label: '[ clip: tailwhip en quarter ]', esVideo: true, ratio: '4/3' },
+    { cat: 'RIDERS', label: '[ foto: sesión sábado ]', esVideo: false, ratio: '4/5' },
+    { cat: 'CLASES', label: '[ foto: clase inicial en park ]', esVideo: false, ratio: '4/3' },
+    { cat: 'TRUCOS', label: '[ clip: primer 180 de Nico ]', esVideo: true, ratio: '4/5' },
+    { cat: 'STREET', label: '[ clip: manual pad centro ]', esVideo: true, ratio: '4/3' },
+    { cat: 'EVENTOS', label: '[ foto: jam de invierno ]', esVideo: false, ratio: '4/3' },
+    { cat: 'RIDERS', label: '[ clip: progreso de Cami ]', esVideo: true, ratio: '4/3' },
+    { cat: 'PROFE', label: '[ foto: retrato en bowl ]', esVideo: false, ratio: '4/5' },
+    { cat: 'CLASES', label: '[ foto: grupo sábado ]', esVideo: false, ratio: '4/3' },
+    { cat: 'EVENTOS', label: '[ clip: best trick jam ]', esVideo: true, ratio: '4/3' },
+  ];
+
+  ridersData = [
+    { nombre: 'NICO', nivel: 'INICIAL → INTERMEDIO', antes: 'BUNNY HOP', despues: '180 A FAKIE', quote: 'Arrancó practicando bunny hop y en pocos meses ya estaba conectando 180 con fakie.', media: '[ video: progreso de Nico ]' },
+    { nombre: 'CAMI', nivel: 'DESDE CERO', antes: 'PRIMERA CLASE', despues: 'MANUAL LARGO', quote: 'Llegó sin haber tocado una BMX. Hoy baja rampas y sostiene manuales de 10 metros.', media: '[ foto: Cami en el park ]' },
+    { nombre: 'TOMI', nivel: 'INTERMEDIO', antes: 'MIEDO AL QUARTER', despues: 'AIRS Y TRANSFERS', quote: 'Trabajamos el miedo paso a paso. Ahora vuela el quarter como si nada.', media: '[ clip: transfer de Tomi ]' },
+  ];
+
+  planesData = [
+    { nombre: 'CLASE INDIVIDUAL', para: 'Atención personalizada', precio: '$25', unidad: '/ CLASE', destacado: false, incluye: ['1 hora de clase', 'Corrección técnica', 'Objetivo personalizado'], cta: 'Reservar' },
+    { nombre: 'CLASE GRUPAL', para: 'Aprender en comunidad', precio: '$15', unidad: '/ CLASE', destacado: false, incluye: ['Clase compartida', 'Ejercicios por nivel', 'Progresión guiada'], cta: 'Reservar' },
+    { nombre: 'PACK MENSUAL', para: 'Para riders constantes', precio: '$50', unidad: '/ MES', destacado: true, incluye: ['4 clases al mes', 'Seguimiento personal', 'Recomendaciones de práctica'], cta: 'Quiero el pack' },
+    { nombre: 'PREGRABADAS', para: 'Practica donde sea', precio: '$10', unidad: '/ MES', destacado: false, incluye: ['Acceso a videos', 'Tutoriales por nivel', 'Ejercicios técnicos'], cta: 'Próximamente' },
+  ];
+
+  spotsData = [
+    { nombre: 'SKATEPARK PALERMO', nivel: 'INICIAL / INTERMEDIO', ideal: 'Rampas, quarters, transfers suaves. Ideal para arrancar.', dias: 'MARTES Y VIERNES' },
+    { nombre: 'SPOT CALLEJERO CENTRO', nivel: 'INTERMEDIO / AVANZADO', ideal: 'Street puro: manual pads, rails, gaps.', dias: 'JUEVES' },
+    { nombre: 'SKATEPARK COSTANERA', nivel: 'TODOS LOS NIVELES', ideal: 'Park amplio con zonas separadas por nivel.', dias: 'SÁBADO' },
+    { nombre: 'BOWL MUNICIPAL', nivel: 'INTERMEDIO', ideal: 'Bowl profundo, transiciones y carve.', dias: 'SÁBADO TARDE' },
+  ];
+
+  chip(label, activo, onClick) {
+    return {
+      label,
+      onClick,
+      bg: activo ? 'var(--acc)' : 'transparent',
+      color: activo ? 'var(--accInk)' : '#A3A3A3',
+      border: activo ? 'var(--acc)' : '#4a4a4a',
+    };
+  }
+
+  renderVals() {
+    const { filtroAgenda, filtroGaleria, modal, formOk, formError } = this.state;
+
+    const nivelesAgenda = ['Todos', 'Inicial', 'Intermedio', 'Avanzado'];
+    const chipsAgenda = nivelesAgenda.map(n =>
+      this.chip(n.toUpperCase(), filtroAgenda === n, () => this.setState({ filtroAgenda: n }))
+    );
+    const clases = this.clasesData
+      .filter(c => filtroAgenda === 'Todos' || c.nivel === filtroAgenda.toUpperCase() || c.nivel === 'TODOS')
+      .map(c => ({
+        ...c,
+        estadoColor: c.estado === 'Disponible' ? 'var(--acc)' : c.estado === 'Pocos cupos' ? '#FFB020' : '#5a5a5a',
+        reservable: c.estado !== 'Completo',
+        completa: c.estado === 'Completo',
+      }));
+
+    const catsGaleria = ['Todo', 'Profe', 'Riders', 'Clases', 'Trucos', 'Street', 'Eventos'];
+    const chipsGaleria = catsGaleria.map(cat =>
+      this.chip(cat.toUpperCase(), filtroGaleria === cat, () => this.setState({ filtroGaleria: cat }))
+    );
+    const galeria = this.galeriaData
+      .filter(g => filtroGaleria === 'Todo' || g.cat === filtroGaleria.toUpperCase())
+      .map(g => ({ ...g, onClick: () => this.setState({ modal: g }) }));
+
+    const planes = this.planesData.map(p => ({
+      ...p,
+      borde: p.destacado ? 'var(--acc)' : '#2D2D2D',
+      btnBg: p.destacado ? 'var(--acc)' : 'transparent',
+      btnColor: p.destacado ? 'var(--accInk)' : '#F2F2EA',
+      btnBorde: p.destacado ? 'var(--acc)' : '#4a4a4a',
+    }));
+
+    const movil = this.state.w < 860;
+    const movilChico = this.state.w < 640;
+
+    return {
+      movil,
+      navLinksDisplay: movil ? 'none' : 'flex',
+      hamburgerDisplay: movil ? 'inline-block' : 'none',
+      menuAbierto: movil && this.state.menuAbierto,
+      menuIcono: this.state.menuAbierto ? '✕' : '☰',
+      toggleMenu: () => this.setState(s => ({ menuAbierto: !s.menuAbierto })),
+      cerrarMenu: () => this.setState({ menuAbierto: false }),
+      gridHero: movil ? '1fr' : 'minmax(0,7fr) minmax(0,5fr)',
+      gridProfe: movil ? '1fr' : 'minmax(0,5fr) minmax(0,7fr)',
+      gridSpots: movil ? '1fr' : 'minmax(0,7fr) minmax(0,5fr)',
+      gridContacto: movil ? '1fr' : 'minmax(0,5fr) minmax(0,7fr)',
+      gridForm: movilChico ? '1fr' : '1fr 1fr',
+      gridClase: movil ? '1fr auto' : '110px 90px minmax(0,1fr) auto auto',
+      gapClase: movil ? '14px 16px' : '24px',
+      alignNivel: movil ? 'flex-end' : 'stretch',
+      colBtnClase: movil ? '1 / -1' : 'auto',
+      altoMapa: movil ? '260px' : '420px',
+      chipsAgenda, clases, chipsGaleria, galeria, planes,
+      riders: this.ridersData,
+      spots: this.spotsData,
+      modalAbierto: !!modal,
+      modalMedia: modal ? modal.label : '',
+      modalTitulo: modal ? modal.label.replace(/^\[ | \]$/g, '') : '',
+      modalCat: modal ? modal.cat : '',
+      cerrarModal: () => this.setState({ modal: null }),
+      frenarClick: (e) => e.stopPropagation(),
+      formOk,
+      formVisible: !formOk,
+      formError,
+      ctaFijo: this.props.ctaFijo ?? true,
+      enviarForm: (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        if (!fd.get('nombre') || !fd.get('nivel') || !fd.get('whatsapp')) {
+          this.setState({ formError: '✕ Completa nombre, nivel y WhatsApp para reservar.' });
+          return;
+        }
+        this.setState({ formOk: true, formError: '' });
+      },
+      resetForm: () => this.setState({ formOk: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

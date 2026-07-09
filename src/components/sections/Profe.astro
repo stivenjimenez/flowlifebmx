@@ -1,0 +1,126 @@
+---
+import { profeImages } from '../../data/images';
+import MediaPlaceholder from '../ui/MediaPlaceholder.astro';
+
+const [retrato, dandoClase, truco] = profeImages;
+---
+
+<section id="profe">
+  <div class="fl-inner inner">
+    <div class="fotos">
+      <MediaPlaceholder {...retrato} ratio="4/5" />
+      <div class="fotosChicas">
+        <MediaPlaceholder {...dandoClase} ratio="4/3" small />
+        <MediaPlaceholder {...truco} ratio="4/3" small />
+      </div>
+    </div>
+    <div class="info">
+      <div class="fl-kicker">01 / EL PROFE</div>
+      <h2 class="fl-title titulo">Más de una década<br />arriba de la bici.</h2>
+      <p>[ Bio del profe: cómo empezó en el BMX, qué lo conecta con la disciplina y por qué decidió enseñar. Historia real, cercana, sin humo. ]</p>
+      <p class="ultimoParrafo">Filosofía simple: progresar sin apuro, con técnica, seguridad y respeto por la cultura. Cada rider avanza a su ritmo, con objetivos claros por clase.</p>
+      <div class="stats">
+        <div class="stat">
+          <div class="numero">12+</div>
+          <div class="etiqueta">AÑOS EN BMX</div>
+        </div>
+        <div class="stat">
+          <div class="numero">80+</div>
+          <div class="etiqueta">RIDERS MENTOREADOS</div>
+        </div>
+        <div class="stat">
+          <div class="numero">6</div>
+          <div class="etiqueta">SPOTS ACTIVOS</div>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag">PARK</span>
+        <span class="tag">STREET</span>
+        <span class="tag">BOWL</span>
+        <span class="tag tagAcc">JAMS Y COMPETENCIAS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    border-bottom: 1px solid var(--border);
+  }
+  .inner {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(32px, 5vw, 56px);
+    align-items: start;
+  }
+  .fotos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .fotosChicas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  h2.titulo {
+    margin-bottom: 24px;
+  }
+  .info p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 0 16px;
+  }
+  .info p.ultimoParrafo {
+    margin-bottom: 36px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    max-width: 560px;
+    margin-bottom: 36px;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 18px;
+  }
+  .numero {
+    font-family: var(--font-display);
+    font-size: 40px;
+    color: var(--acc);
+    line-height: 1;
+  }
+  .etiqueta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    padding: 6px 12px;
+  }
+  .tag.tagAcc {
+    color: var(--acc);
+    border-color: var(--acc);
+  }
+
+  @media (max-width: 859px) {
+    .inner {
+      /* minmax(0,1fr): el grid de stats (auto-fit 150px) no debe fijar el ancho mínimo de la columna */
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

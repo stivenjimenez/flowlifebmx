@@ -1,0 +1,47 @@
+---
+const ITEMS = ['PARK', 'STREET', 'BOWL', 'DIRT', 'FLAT', 'BUNNY HOP', 'MANUAL', '180', 'FAKIE'];
+---
+
+<div class="cinta" aria-hidden="true">
+  <div class="pista">
+    {
+      [0, 1].map(() => (
+        <div class="fila">
+          {ITEMS.map((item) => (
+            <Fragment>
+              <span>{item}</span>
+              <span class="sep">✕</span>
+            </Fragment>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .cinta {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    overflow: hidden;
+    padding: 14px 0;
+  }
+  .pista {
+    display: flex;
+    width: max-content;
+    animation: fl-marquee 22s linear infinite;
+  }
+  .fila {
+    display: flex;
+    gap: 36px;
+    padding-right: 36px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: 0.12em;
+    color: var(--muted-dim);
+    white-space: nowrap;
+  }
+  .sep {
+    color: var(--acc);
+  }
+</style>

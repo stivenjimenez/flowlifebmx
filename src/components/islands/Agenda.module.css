@@ -1,0 +1,146 @@
+.encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.clase {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: 110px 90px minmax(0, 1fr) auto auto;
+  gap: 24px;
+  align-items: center;
+}
+
+.clase:hover {
+  border-color: var(--border-strong);
+}
+
+.dia {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1;
+}
+
+.hora {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.nivel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nivelTag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.lugar {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.tipo {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.estado {
+  text-align: right;
+}
+
+.estadoTexto {
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.disponible {
+  color: var(--acc);
+}
+
+.pocos {
+  color: var(--warn);
+}
+
+.completo {
+  color: var(--muted-dim);
+}
+
+.cupos {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-dim);
+  margin-top: 4px;
+}
+
+.reservar {
+  text-align: center;
+  background: var(--acc);
+  color: var(--accInk);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 11px 18px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.reservar:hover {
+  filter: brightness(1.1);
+}
+
+.lleno {
+  text-align: center;
+  border: 1px solid var(--border);
+  color: var(--muted-dim);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 11px 18px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.nota {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted-dim);
+  margin: 24px 0 0;
+}
+
+@media (max-width: 859px) {
+  .clase {
+    grid-template-columns: 1fr auto;
+    gap: 14px 16px;
+  }
+  .nivel {
+    align-items: flex-end;
+  }
+  .reservar,
+  .lleno {
+    grid-column: 1 / -1;
+  }
+}

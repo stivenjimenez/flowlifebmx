@@ -1,0 +1,101 @@
+---
+import { spots } from '../../data/spots';
+---
+
+<section id="spots">
+  <div class="fl-inner">
+    <div class="fl-kicker">06 / SPOTS Y SKATEPARKS</div>
+    <h2 class="fl-title titulo">Dónde<br />andamos.</h2>
+    <div class="grid">
+      <div class="mapa fl-placeholder">
+        <span class="fl-placeholder-label">[ mapa interactivo de spots ]</span>
+      </div>
+      <div class="cards">
+        {
+          spots.map((spot) => (
+            <article class="card">
+              <div class="cabecera">
+                <span class="nombre">{spot.nombre}</span>
+                <span class="nivel">{spot.nivel}</span>
+              </div>
+              <div class="ideal">{spot.ideal}</div>
+              <div class="dias">CLASES: {spot.dias}</div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-alt);
+  }
+  h2.titulo {
+    margin-bottom: 40px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+  .grid .mapa {
+    min-height: 420px;
+  }
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 22px;
+  }
+  .card:hover {
+    border-color: var(--border-strong);
+  }
+  .cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .nombre {
+    font-family: var(--font-display);
+    font-size: 24px;
+    line-height: 1;
+  }
+  .nivel {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    border: 1px solid var(--border-strong);
+    padding: 4px 8px;
+    white-space: nowrap;
+  }
+  .ideal {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .dias {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--acc);
+    margin-top: 10px;
+  }
+
+  @media (max-width: 859px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .grid .mapa {
+      min-height: 260px;
+    }
+  }
+</style>
