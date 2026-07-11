@@ -6,6 +6,7 @@ export interface VideoItem {
 }
 
 export const heroVideo: VideoItem = {
+  src: '/video_hero.mp4',
   title: 'Profe andando en skatepark',
   label: '[ video loop: profe andando\nen skatepark ]',
 };
