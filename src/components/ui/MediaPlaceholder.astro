@@ -7,17 +7,22 @@ interface Props {
   poster?: string;
   ratio?: string; // aspect-ratio CSS, ej. "4/3"
   small?: boolean; // label de 11px (fotos secundarias)
+  loop?: boolean; // video en loop, autoplay y sin controles (ej. hero)
   class?: string;
 }
 
-const { label, src, alt = '', esVideo = false, poster, ratio, small = false, class: className } = Astro.props;
+const { label, src, alt = '', esVideo = false, poster, ratio, small = false, loop = false, class: className } = Astro.props;
 const estiloCaja = ratio ? `aspect-ratio:${ratio}` : undefined;
 const estiloMedia = [ratio ? `aspect-ratio:${ratio}` : null, 'width:100%', 'object-fit:cover'].filter(Boolean).join(';');
 ---
 
 {
   src && esVideo ? (
-    <video class={className} src={src} poster={poster} style={estiloMedia} controls playsinline />
+    loop ? (
+      <video class={className} src={src} poster={poster} style={estiloMedia} autoplay loop muted playsinline />
+    ) : (
+      <video class={className} src={src} poster={poster} style={estiloMedia} controls playsinline />
+    )
   ) : src ? (
     <img class={className} src={src} alt={alt} style={estiloMedia} />
   ) : (

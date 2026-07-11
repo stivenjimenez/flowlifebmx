@@ -16,7 +16,7 @@ import MediaPlaceholder from '../ui/MediaPlaceholder.astro';
       </div>
     </div>
     <div class="media">
-      <MediaPlaceholder label={heroVideo.label} src={heroVideo.src} poster={heroVideo.poster} esVideo />
+      <MediaPlaceholder label={heroVideo.label} src={heroVideo.src} poster={heroVideo.poster} esVideo loop />
     </div>
   </div>
 </section>
@@ -34,7 +34,7 @@ import MediaPlaceholder from '../ui/MediaPlaceholder.astro';
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: 48px;
-    align-items: end;
+    align-items: stretch;
   }
   .contenido {
     padding-bottom: clamp(40px, 6vw, 72px);
@@ -110,17 +110,29 @@ import MediaPlaceholder from '../ui/MediaPlaceholder.astro';
     align-self: stretch;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
+    padding-bottom: clamp(40px, 6vw, 72px);
   }
   .media :global(.fl-placeholder) {
-    height: 420px;
+    height: 560px;
     border-bottom: none;
     padding: 24px;
+  }
+  .media :global(video) {
+    height: 560px;
+    border-radius: 3px;
   }
 
   @media (max-width: 859px) {
     .inner {
       grid-template-columns: minmax(0, 1fr);
+    }
+    .media {
+      padding-bottom: clamp(40px, 6vw, 72px);
+    }
+    .media :global(.fl-placeholder),
+    .media :global(video) {
+      height: 420px;
     }
   }
 </style>
