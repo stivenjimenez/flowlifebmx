@@ -1,12 +1,12 @@
 ---
-import { navLinks } from '../../data/site';
+import { navLinks } from "../../data/site";
 ---
 
 <header class="header">
   <div class="inner">
     <a href="#inicio" class="logo">
+      <img src="/logo_bmx_vector.svg" alt="Flow Life BMX" class="logoMarca" width="447" height="447" />
       <span class="logoNombre">FLOW <span class="logoAcc">LIFE</span></span>
-      <span class="logoSub">BMX FREESTYLE</span>
     </a>
     <nav class="nav">
       <div class="links">
@@ -58,10 +58,14 @@ import { navLinks } from '../../data/site';
   }
   .logo {
     display: flex;
-    align-items: baseline;
-    gap: 8px;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
     white-space: nowrap;
+  }
+  .logoMarca {
+    height: 36px;
+    width: auto;
   }
   .logoNombre {
     font-family: var(--font-display);
@@ -71,11 +75,6 @@ import { navLinks } from '../../data/site';
   }
   .logoAcc {
     color: var(--acc);
-  }
-  .logoSub {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--muted);
   }
   .nav {
     display: flex;
@@ -155,12 +154,6 @@ import { navLinks } from '../../data/site';
     }
     .menuMovil.abierto {
       display: flex;
-    }
-  }
-
-  @media (max-width: 639px) {
-    .logoSub {
-      display: none;
     }
   }
 
