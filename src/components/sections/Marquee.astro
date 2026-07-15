@@ -1,11 +1,28 @@
 ---
-const ITEMS = ['PARK', 'STREET', 'BOWL', 'DIRT', 'FLAT', 'BUNNY HOP', 'MANUAL', '180', 'FAKIE'];
+const ITEMS = [
+	"PARK",
+	"STREET",
+	"BOWL",
+	"DIRT",
+	"BARSPIN",
+	"TAILWHIP",
+	"FLAIR",
+	"360",
+	"NOHANDER",
+	"TRUCK DRIVER",
+	"TIRE TAP",
+	"BUNNY HOP",
+	"MANUAL",
+	"180",
+	"FAKIE",
+];
+const COPIES = 3;
 ---
 
 <div class="cinta" aria-hidden="true">
   <div class="pista">
     {
-      [0, 1].map(() => (
+      Array.from({ length: COPIES }, () => (
         <div class="fila">
           {ITEMS.map((item) => (
             <Fragment>
@@ -29,10 +46,12 @@ const ITEMS = ['PARK', 'STREET', 'BOWL', 'DIRT', 'FLAT', 'BUNNY HOP', 'MANUAL', 
   .pista {
     display: flex;
     width: max-content;
-    animation: fl-marquee 22s linear infinite;
+    animation: fl-marquee 42s linear infinite;
+    will-change: transform;
   }
   .fila {
     display: flex;
+    flex: none;
     gap: 36px;
     padding-right: 36px;
     font-family: var(--font-display);
