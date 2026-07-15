@@ -1,6 +1,6 @@
 ---
-import { socialLinks, whatsappUrl } from '../../data/site';
-import ContactForm from '../forms/ContactForm';
+import { socialLinks, whatsappUrl } from "../../data/site";
+import ContactForm from "../forms/ContactForm";
 ---
 
 <section id="contacto">
@@ -11,7 +11,7 @@ import ContactForm from '../forms/ContactForm';
       <p class="texto">Cuéntanos tu nivel y qué quieres aprender. Te respondemos por WhatsApp para coordinar día, spot y horario.</p>
       <a href={whatsappUrl} class="whatsapp">Escribir por WhatsApp →</a>
       <div class="sociales">
-        {socialLinks.map((social) => <a href={social.href}>{social.label}</a>)}
+        {socialLinks.map((social) => <a target="_blank" href={social.href}>{social.label}</a>)}
       </div>
     </div>
     <div class="tarjeta">
