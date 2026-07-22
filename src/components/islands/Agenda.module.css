@@ -18,7 +18,7 @@
   border: 1px solid var(--border);
   padding: 22px 24px;
   display: grid;
-  grid-template-columns: 110px 90px minmax(0, 1fr) auto auto;
+  grid-template-columns: 110px minmax(0, 1fr) auto auto;
   gap: 24px;
   align-items: center;
 }
@@ -39,30 +39,9 @@
   color: var(--muted);
 }
 
-.nivel {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.nivelTag {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text);
-  border: 1px solid var(--border-strong);
-  padding: 4px 8px;
-  text-align: center;
-}
-
 .lugar {
   font-weight: 700;
   font-size: 15px;
-}
-
-.tipo {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 2px;
 }
 
 .estado {
@@ -84,13 +63,6 @@
 
 .completo {
   color: var(--muted-dim);
-}
-
-.cupos {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--muted-dim);
-  margin-top: 4px;
 }
 
 .reservar {
@@ -135,9 +107,6 @@
   .clase {
     grid-template-columns: 1fr auto;
     gap: 14px 16px;
-  }
-  .nivel {
-    align-items: flex-end;
   }
   .reservar,
   .lleno {
