@@ -10,6 +10,7 @@ export const navLinks: NavLink[] = [
 	{ href: "#galeria", label: "Galería" },
 	{ href: "#precios", label: "Precios" },
 	{ href: "#spots", label: "Spots" },
+	{ href: "#podcast", label: "Podcast" },
 ];
 
 // TODO: reemplazar por el link real de WhatsApp (wa.me/<numero>)
