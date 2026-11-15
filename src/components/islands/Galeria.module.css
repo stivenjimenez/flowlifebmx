@@ -8,9 +8,8 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 14px;
+  columns: 4;
+  column-gap: 14px;
 }
 
 .item {
@@ -23,10 +22,17 @@
   display: flex;
   align-items: flex-end;
   overflow: hidden;
+  width: 100%;
+  margin-bottom: 14px;
+  break-inside: avoid;
+  border-radius: 3px;
+  transition: border-color 180ms ease, transform 180ms ease;
 }
+.item:focus-visible { outline: 2px solid var(--acc); outline-offset: -3px; }
 
 .item:hover {
   border-color: var(--acc);
+  transform: translateY(-3px);
 }
 
 .itemInfo {
@@ -54,7 +60,30 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 250ms ease;
 }
+
+.video .miniatura { transform: scale(1.34); }
+.item:not(.video):hover .miniatura { transform: scale(1.04); }
+.video:hover .miniatura { transform: scale(1.39); }
+.play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding-left: 3px;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 50%;
+  background: rgba(0,0,0,.55);
+  color: white;
+  font-size: 13px;
+}
+@media (max-width: 900px) { .grid { columns: 3; } }
+@media (max-width: 600px) { .grid { columns: 2; column-gap: 10px; } .item { margin-bottom: 10px; } .ocultoEnMovil { display: none; } }
+@media (prefers-reduced-motion: reduce) { .item, .miniatura { transition: none; } }
 
 .badge {
   position: absolute;

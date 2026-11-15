@@ -1,11 +1,23 @@
 ---
-import { galeriaImages } from '../../data/images';
 import { galeriaVideos } from '../../data/videos';
 import Galeria, { type GaleriaItem } from '../islands/Galeria';
 
+const publicaciones = [
+  { id: 'DV4G2xziPg8', indice: 5, orden: 2 },
+  { id: 'DTtmQPwDbW2', indice: 1, orden: 6 },
+  { id: 'Dfv5B98tFwY', indice: 1, orden: 9 },
+  { id: 'DOWhnrMjgRF', indice: 1, orden: 12 },
+  { id: 'DQEm_49jsqB', indice: 1, orden: 15 },
+  { id: 'DfBeIg0RSs1', indice: 1, orden: 3.5, video: true },
+  { id: 'DNZZYA4RQMb', indice: 1, orden: 10.5, video: true },
+];
 const items: GaleriaItem[] = [
-  ...galeriaImages.map((imagen) => ({ ...imagen, esVideo: false })),
-  ...galeriaVideos.map((video) => ({ ...video, esVideo: true, alt: video.title })),
+  ...galeriaVideos.map((video, index) => ({ ...video, orden: [1, 3, 4, 5, 7, 8, 10, 11, 13, 14][index], esVideo: true, alt: video.title })),
+  ...publicaciones.map(({ id, indice, orden, video }) => ({
+    cat: '', label: `Publicación de Instagram ${id}`, ratio: '4/5', orden, esVideo: Boolean(video),
+    instagram: `https://www.instagram.com/p/${id}/?img_index=${indice}`,
+    src: `/galeria/${id}.webp`,
+  })),
 ].sort((a, b) => a.orden - b.orden);
 ---
 

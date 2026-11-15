@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import FilterChips from './FilterChips';
 import styles from './Galeria.module.css';
 
 export interface GaleriaItem {
@@ -11,14 +10,13 @@ export interface GaleriaItem {
   src?: string;
   alt?: string;
   poster?: string;
+  youtube?: string;
+  instagram?: string;
 }
-
-const CATEGORIAS = ['TODO', 'PROFE', 'RIDERS', 'CLASES', 'TRUCOS', 'STREET', 'EVENTOS'];
 
 const tituloDe = (item: GaleriaItem) => item.label.replace(/^\[ | \]$/g, '');
 
 export default function Galeria({ items }: { items: GaleriaItem[] }) {
-  const [cat, setCat] = useState('TODO');
   const [modal, setModal] = useState<GaleriaItem | null>(null);
 
   useEffect(() => {
@@ -29,8 +27,6 @@ export default function Galeria({ items }: { items: GaleriaItem[] }) {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [modal]);
-
-  const visibles = items.filter((g) => cat === 'TODO' || g.cat === cat);
 
   return (
     <>
@@ -43,10 +39,19 @@ export default function Galeria({ items }: { items: GaleriaItem[] }) {
             de la comunidad.
           </h2>
         </div>
-        <FilterChips opciones={CATEGORIAS} activo={cat} onCambio={setCat} />
       </div>
       <div className={styles.grid}>
-        {visibles.map((g) => (
+        {items.map((g) => g.instagram ? (
+          <a key={g.orden} className={styles.item} style={{ aspectRatio: g.ratio }} href={g.instagram} target="_blank" rel="noopener noreferrer" aria-label={`${g.label} (abre en otra pestaña)`}>
+            <img className={styles.miniatura} src={g.src} alt="" loading="lazy" />
+            {g.esVideo && <span className={styles.play} aria-hidden="true">▶</span>}
+          </a>
+        ) : g.youtube ? (
+          <a key={g.orden} className={`${styles.item} ${styles.video} ${['https://www.youtube.com/watch?v=IKEEv-lLFi8', 'https://www.youtube.com/watch?v=6NSYXm5-09g'].includes(g.youtube) ? styles.ocultoEnMovil : ''}`} style={{ aspectRatio: '16/9' }} href={g.youtube} target="_blank" rel="noopener noreferrer" aria-label={`${g.label} en YouTube (abre en otra pestaña)`}>
+            <img className={styles.miniatura} src={g.poster} alt="" loading="lazy" />
+            <span className={styles.play} aria-hidden="true">▶</span>
+          </a>
+        ) : (
           <button
             key={g.orden}
             type="button"
@@ -58,11 +63,9 @@ export default function Galeria({ items }: { items: GaleriaItem[] }) {
               <img className={styles.miniatura} src={g.src} alt={g.alt ?? tituloDe(g)} />
             ) : (
               <span className={styles.itemInfo}>
-                <span className={styles.itemCat}>{g.cat}</span>
                 <span className={styles.itemLabel}>{g.label}</span>
               </span>
             )}
-            {g.esVideo && <span className={styles.badge}>▶ VIDEO</span>}
           </button>
         ))}
       </div>
@@ -85,7 +88,6 @@ export default function Galeria({ items }: { items: GaleriaItem[] }) {
             </div>
             <div className={styles.pie}>
               <span className={styles.titulo}>{tituloDe(modal)}</span>
-              <span className={styles.pieCat}>{modal.cat}</span>
             </div>
           </div>
         </div>
