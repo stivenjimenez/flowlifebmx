@@ -1,12 +1,14 @@
 export interface VideoItem {
   src?: string; // p. ej. "/videos/session-01.mp4" cuando exista el asset real
+  webm?: string;
   poster?: string;
   title: string;
   label: string; // texto del placeholder mientras no hay src
 }
 
 export const heroVideo: VideoItem = {
-  src: '/video_hero.mp4',
+  src: '/hero-optimizado.mp4',
+  webm: '/hero-optimizado.webm',
   title: 'Profe andando en skatepark',
   label: '[ video loop: profe andando\nen skatepark ]',
 };

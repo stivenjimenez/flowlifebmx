@@ -2,6 +2,7 @@
 interface Props {
   label: string;
   src?: string;
+  webm?: string;
   alt?: string;
   esVideo?: boolean;
   poster?: string;
@@ -11,7 +12,7 @@ interface Props {
   class?: string;
 }
 
-const { label, src, alt = '', esVideo = false, poster, ratio, small = false, loop = false, class: className } = Astro.props;
+const { label, src, webm, alt = '', esVideo = false, poster, ratio, small = false, loop = false, class: className } = Astro.props;
 const estiloCaja = ratio ? `aspect-ratio:${ratio}` : undefined;
 const estiloMedia = [ratio ? `aspect-ratio:${ratio}` : null, 'width:100%', 'object-fit:cover'].filter(Boolean).join(';');
 ---
@@ -19,7 +20,10 @@ const estiloMedia = [ratio ? `aspect-ratio:${ratio}` : null, 'width:100%', 'obje
 {
   src && esVideo ? (
     loop ? (
-      <video class={className} src={src} poster={poster} style={estiloMedia} autoplay loop muted playsinline />
+      <video class={className} poster={poster} style={estiloMedia} autoplay loop muted playsinline>
+        {webm && <source src={webm} type='video/webm; codecs="av01.0.05M.08"' />}
+        <source src={src} type="video/mp4" />
+      </video>
     ) : (
       <video class={className} src={src} poster={poster} style={estiloMedia} controls playsinline />
     )
