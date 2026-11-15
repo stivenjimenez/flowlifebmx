@@ -12,7 +12,7 @@ export default function Agenda({ clases }: { clases: Clase[] }) {
     <>
       <div className={styles.encabezado}>
         <div>
-          <div className="fl-kicker">02 / AGENDA DE CLASES</div>
+          <div className="fl-kicker">AGENDA DE CLASES</div>
           <h2 className="fl-title">
             Esta semana
             <br />

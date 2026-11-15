@@ -36,7 +36,7 @@ export default function Galeria({ items }: { items: GaleriaItem[] }) {
     <>
       <div className={styles.encabezado}>
         <div>
-          <div className="fl-kicker">04 / GALERÍA</div>
+          <div className="fl-kicker">GALERÍA</div>
           <h2 className="fl-title">
             Fotos y clips
             <br />
