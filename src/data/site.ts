@@ -13,8 +13,9 @@ export const navLinks: NavLink[] = [
 	// { href: "#podcast", label: "Podcast" },
 ];
 
-// TODO: reemplazar por el link real de WhatsApp (wa.me/<numero>)
-export const whatsappUrl = "#";
+// Número internacional sin + ni espacios.
+export const whatsappNumber = "573216477575";
+export const whatsappUrl = whatsappNumber ? `https://wa.me/${whatsappNumber}` : "";
 
 export const socialLinks = [
 	{

@@ -1,6 +1,6 @@
 ---
 import { socialLinks, whatsappUrl } from "../../data/site";
-import ContactForm from "../forms/ContactForm";
+import ContactForm from "../forms/ContactForm.astro";
 ---
 
 <section id="contacto">
@@ -8,14 +8,14 @@ import ContactForm from "../forms/ContactForm";
     <div>
       <div class="fl-kicker">CONTACTO</div>
       <h2 class="fl-title titulo">Reserva tu<br />primera clase.</h2>
-      <p class="texto">Cuéntanos tu nivel y qué quieres aprender. Te respondemos por WhatsApp para coordinar día, spot y horario.</p>
-      <a href={whatsappUrl} class="whatsapp">Escribir por WhatsApp →</a>
+      <p class="texto">Cuéntanos tu nivel y el tipo de clase que buscas. Por WhatsApp coordinamos el lugar, la fecha y el pago.</p>
+      {whatsappUrl && <a href={whatsappUrl} class="whatsapp">Escribir por WhatsApp →</a>}
       <div class="sociales">
         {socialLinks.map((social) => <a target="_blank" href={social.href}>{social.label}</a>)}
       </div>
     </div>
     <div class="tarjeta">
-      <ContactForm client:visible />
+      <ContactForm />
     </div>
   </div>
 </section>

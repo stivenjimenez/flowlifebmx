@@ -1,0 +1,63 @@
+---
+import { whatsappNumber } from '../../data/site';
+---
+<form class="formulario" data-whatsapp={whatsappNumber}>
+  <div class="encabezado">
+    <span class="kicker">EMPECEMOS A RODAR</span>
+    <h3>Cuéntanos de ti<span>.</span></h3>
+    <p>Completa estos datos y coordinemos tu clase por WhatsApp.</p>
+  </div>
+  <label class="campo completo"><span>NOMBRE *</span><input name="nombre" placeholder="Tu nombre" autocomplete="name" required pattern=".*\S.*" /></label>
+  <label class="campo"><span>NIVEL *</span>
+    <select name="nivel" required>
+      <option value="">Elegir…</option><option>Estoy empezando</option><option>Inicial</option><option>Intermedio</option><option>Avanzado</option>
+    </select>
+  </label>
+  <label class="campo"><span>TIPO DE CLASE *</span>
+    <select name="clase" required>
+      <option value="">Elegir…</option><option>Individual</option><option>Grupal</option><option>Quiero asesoría</option>
+    </select>
+  </label>
+  <label class="campo completo"><span>¿QUÉ TE GUSTARÍA APRENDER?</span><textarea name="objetivo" rows="3" placeholder="Por ejemplo: ganar confianza, aprender trucos o mejorar mi técnica"></textarea></label>
+  {!whatsappNumber && <p class="aviso">El contacto por WhatsApp aún no está disponible.</p>}
+  <button type="submit" disabled={!whatsappNumber}>Continuar a WhatsApp ↗</button>
+  <p class="nota">Abriremos WhatsApp con tu mensaje listo para que lo revises y envíes. Allí podrás coordinar los detalles y el pago.</p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.formulario').forEach((form) => {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const number = form.dataset.whatsapp;
+      if (!number || !form.reportValidity()) return;
+      const datos = new FormData(form);
+      const nombre = String(datos.get('nombre') ?? '').trim();
+      const objetivo = String(datos.get('objetivo') ?? '').trim();
+      const mensaje = `¡Hola! Me interesa entrenar con FlowLife.\n\nNombre: ${nombre}\nNivel: ${datos.get('nivel')}\nTipo de clase: ${datos.get('clase')}${objetivo ? `\nObjetivo: ${objetivo}` : ''}\n\n¿Podemos coordinar los detalles?`;
+      window.location.href = `https://wa.me/${number}?text=${encodeURIComponent(mensaje)}`;
+    });
+  });
+</script>
+
+<style>
+  .formulario { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; }
+  .encabezado { grid-column: 1 / -1; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .kicker { color: var(--acc); font: 10px var(--font-mono); letter-spacing: .12em; }
+  h3 { margin: 10px 0 6px; font: 36px/1 var(--font-display); }
+  h3 span { color: var(--acc); }
+  .encabezado p, .nota { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+  .campo { display: flex; flex-direction: column; gap: 9px; }
+  .campo span { font: 11px var(--font-mono); letter-spacing: .08em; color: var(--muted); }
+  .completo, .aviso, button, .nota { grid-column: 1 / -1; }
+  input, select, textarea { width: 100%; min-width: 0; min-height: 52px; padding: 14px; background: var(--bg); border: 1px solid var(--border-strong); border-radius: 2px; color: var(--text); font: 14px var(--font-body); }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+  textarea { resize: vertical; }
+  select { color-scheme: dark; cursor: pointer; }
+  .aviso { margin: 0; color: var(--muted); font: 12px/1.5 var(--font-mono); }
+  button { padding: 17px; border: 0; border-radius: 3px; background: var(--acc); color: var(--accInk); font: 800 13px var(--font-body); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  button:hover:not(:disabled) { filter: brightness(1.1); }
+  button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+  button:disabled { opacity: .55; cursor: not-allowed; }
+  .nota { font-size: 12px; margin-top: -6px; }
+  @media (max-width: 639px) { .formulario { grid-template-columns: 1fr; } }
+</style>
