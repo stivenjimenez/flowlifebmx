@@ -1,4 +1,6 @@
 ---
+import MenuIcon from "../../assets/icons/menu.svg";
+import CloseIcon from "../../assets/icons/close.svg";
 import { navLinks } from "../../data/site";
 ---
 
@@ -27,7 +29,7 @@ import { navLinks } from "../../data/site";
                 type="button"
                 aria-expanded="false"
                 aria-controls="menu-movil"
-                aria-label="Abrir menú">☰</button
+                aria-label="Abrir menú"><span class="icono-menu"><MenuIcon width={20} height={20} aria-hidden="true" /></span><span class="icono-cerrar"><CloseIcon width={20} height={20} aria-hidden="true" /></span></button
             >
         </nav>
     </div>
@@ -44,7 +46,7 @@ import { navLinks } from "../../data/site";
 
     const setAbierto = (abierto: boolean) => {
         menu.classList.toggle("abierto", abierto);
-        boton.textContent = abierto ? "✕" : "☰";
+        boton.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
         boton.setAttribute("aria-expanded", String(abierto));
     };
 
@@ -141,6 +143,9 @@ import { navLinks } from "../../data/site";
         cursor: pointer;
         border-radius: 3px;
     }
+    .icono-menu, .icono-cerrar { line-height: 0; }
+    .icono-cerrar, .hamburguesa[aria-expanded="true"] .icono-menu { display: none; }
+    .hamburguesa[aria-expanded="true"] .icono-cerrar { display: block; }
     .menuMovil {
         display: none;
         position: fixed;

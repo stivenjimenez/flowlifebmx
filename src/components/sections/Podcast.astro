@@ -1,4 +1,5 @@
 ---
+import PlayIcon from "../../assets/icons/play.svg";
 import { episodios, miniaturaEpisodio, podcast, urlEpisodio } from '../../data/podcast';
 ---
 
@@ -63,7 +64,7 @@ import { episodios, miniaturaEpisodio, podcast, urlEpisodio } from '../../data/p
                 />
                 <span class="badge">{ep.episodio}</span>
                 <span class="play" aria-hidden="true">
-                  ▶
+                  <PlayIcon width={14} height={14} aria-hidden="true" />
                 </span>
               </div>
               <div class="info">
